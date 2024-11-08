@@ -1,0 +1,62 @@
+pipeline {
+     agent any
+
+
+
+    stages {
+        stage('GIT') {
+            steps {
+                echo 'My first job pipeline'
+                checkout([$class: 'GitSCM',
+                          branches: [[name: '*/slim']],
+                          doGenerateSubmoduleConfigurations: false,
+                          extensions: [],
+                          submoduleCfg: [],
+                          userRemoteConfigs: [[url: 'https://github.com/rabiibk/devopsback.git',
+                                              credentialsId: 'tokengit']]
+                ])
+            }
+        }
+
+        stage('Compiling') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+
+
+
+        stage('SONARQUBE') {
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+            }
+        }
+
+        stage('Code Coverage with Jacoco') {
+            steps {
+                script {
+                    // Launch tests with JaCoCo
+                    sh 'mvn jacoco:prepare-agent test jacoco:report'
+                }
+                // Publish JaCoCo report
+                jacoco(execPattern: 'target/jacoco.exec')
+            }
+        }
+        stage('JUnit et mockito Tests') {
+                    steps {
+                        script {
+
+                            sh 'mvn test'
+                        }
+
+                    }
+                }
+
+           stage('NEXUS') {
+                      steps {
+                          sh 'mvn deploy -DskipTests'
+                      }
+                  }
+
+    }
+}
