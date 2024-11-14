@@ -2,58 +2,55 @@ pipeline {
     agent any
 
     stages {
-        stage('GIT') {
+        stage('Checkout') {
             steps {
-                echo 'My second job pipeline'
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/mechmech']],
-                    doGenerateSubmoduleConfigurations: false,
-                    extensions: [],
-                    submoduleCfg: [],
-                    userRemoteConfigs: [[url: 'https://github.com/BchirAyari/devops.git']]
-                ])
-            }
-        }
-        stage('Compiling') {
-            steps {
-                sh 'mvn compile'
+                
+                git url: 'https://github.com/dehech/devops.git', branch: 'master'
             }
         }
         
-         stage('SONARQUBE') {
+        stage('Build') {
             steps {
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=bechir'
+               
+                echo "Nettoyage du projet..."
+                sh './mvnw clean'
+                
+                echo "Compilation du projet..."
+                sh './mvnw install'
             }
         }
         
-        stage('Jacoco') {
+        stage('Test') {
             steps {
-                script {
-                    // Launch tests with JaCoCo
-                    sh 'mvn jacoco:prepare-agent test jacoco:report'
-                }
-                // Publish JaCoCo report
-                jacoco(execPattern: 'target/jacoco.exec')
+              
+                echo "Exécution des tests..."
+                sh './mvnw test'
             }
         }
-        stage('JUnit / Mockito') {
+
+        stage('Build Docker Image') {
             steps {
-                script {
-                    sh 'mvn test'
-                }
+              
+                echo "Construction de l'image Docker..."
+                sh 'docker build -t votre-image:latest .'
             }
         }
-        stage('Packaging') {
+        
+        stage('Deploy') {
             steps {
-                script {
-                    sh 'mvn package'
-                }
+            
+                echo "Déploiement de l'application..."
+                sh 'docker run -d -p 8080:8080 votre-image:latest'
             }
         }
-        stage('NEXUS') {
-            steps {
-                sh 'mvn deploy -DskipTests'
-            }
+    }
+    
+    post {
+        always {
+            echo 'Pipeline terminé.'
+        }
+        failure {
+            echo 'Erreur dans le pipeline.'
         }
     }
 }
