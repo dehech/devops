@@ -40,7 +40,7 @@ pipeline {
             steps {
             
                 echo "Déploiement de l'application..."
-                sh 'docker run -d -p 8080:8080 devops:latest'
+                sh 'docker run -d -p 8081:8080 devops:latest'
             }
         }
     }
