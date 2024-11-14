@@ -11,7 +11,7 @@ pipeline {
         
         stage('Build') {
             steps {
-               
+                sh 'chmod +x ./mvnw'
                 echo "Nettoyage du projet..."
                 sh './mvnw clean'
                 
@@ -32,7 +32,7 @@ pipeline {
             steps {
               
                 echo "Construction de l'image Docker..."
-                sh 'docker build -t votre-image:latest .'
+                sh 'docker build -t devops:latest .'
             }
         }
         
@@ -40,7 +40,7 @@ pipeline {
             steps {
             
                 echo "Déploiement de l'application..."
-                sh 'docker run -d -p 8080:8080 votre-image:latest'
+                sh 'docker run -d -p 8080:8080 devops:latest'
             }
         }
     }
