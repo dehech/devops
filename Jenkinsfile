@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 
-                git url: 'https://github.com/dehech/devops.git', branch: 'master'
+                git url: 'https://github.com/dehech/devops.git', branch: 'master', credentialsId: '1'
             }
         }
         
