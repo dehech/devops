@@ -54,7 +54,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo "Déploiement de l'application..."
-                sh 'docker run -d -p 8081:8080 devops:latest'
+                sh 'docker run -d -p 8081:8080 ${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}'
             }
         }
     }
