@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/DevOpsProject-2.1.1.jar /app/DevOpsProject-2.1.jar
 
 # Expose le port 8082 pour l'application Spring Boot
-EXPOSE 8082
+EXPOSE 8081
 
 # Commande pour exécuter l'application lorsque le conteneur démarre
-CMD ["java", "-jar", "DevOpsProject-2.1.jar"]
+CMD ["java", "-jar", "DevOpsProject-2.1.1.jar"]
