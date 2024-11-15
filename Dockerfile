@@ -5,7 +5,7 @@ FROM openjdk:11
 WORKDIR /app
 
 # Copier le fichier JAR de votre projet dans le conteneur
-COPY DevOpsProject-2.1.jar /app/DevOpsProject-2.1.jar
+COPY target/DevOpsProject-2.1.1.jar /app/DevOpsProject-2.1.jar
 
 # Expose le port 8082 pour l'application Spring Boot
 EXPOSE 8082
