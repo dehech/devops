@@ -56,8 +56,8 @@ pipeline {
                     docker.withRegistry('', DOCKER_HUB_CREDENTIALS) {
                    // withCredentials([usernamePassword(credentialsId: "${DOCKER_HUB_CREDENTIALS}"/*, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD'*/)]) {
                         //sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
-                        //sh "docker tag devops:latest ${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}"
-                        sh "docker push ${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}"
+                        sh "docker tag devops:latest ${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}"
+                        //sh "docker push ${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}"
                         docker.image("${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}").push()
                     }
                 }
