@@ -19,7 +19,7 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: mydb
+      MYSQL_DATABASE: devops
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     volumes:
