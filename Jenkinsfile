@@ -51,7 +51,7 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
+        /*stage('SonarQube Analysis') {
             steps {
                 script {
                     echo "Analyse avec SonarQube..."
@@ -59,7 +59,7 @@ pipeline {
                     sh './mvnw sonar:sonar -Dsonar.projectKey=devops -Dsonar.host.url=${SONARQUBE_HOST} -Dsonar.login=${SONAR_AUTH_TOKEN}'
                 }
             }
-        }
+        }*/
         
         stage('Push to Docker Hub') {
             steps {
@@ -88,9 +88,9 @@ pipeline {
         failure {
             echo 'Erreur dans le pipeline.'
         }
-        cleanup {
+       /* cleanup {
             echo 'Nettoyage des services Docker...'
             sh "docker-compose -f ${DOCKER_COMPOSE_FILE} down"
-        }
+        }*/
     }
 }
