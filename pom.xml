@@ -16,9 +16,6 @@
     <properties>
         <java.version>11</java.version>
     </properties>
-    <properties>
-         <sonar.host.url>http://sonarqube:9000</sonar.host.url>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
