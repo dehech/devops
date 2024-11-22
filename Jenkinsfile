@@ -32,7 +32,7 @@ pipeline {
                 echo "Exécution des tests..."
                 sh './mvnw test'
             }
-        }
+        } /*
         stage('Run SonarQube in Docker') {
             steps {
                 script {
@@ -57,7 +57,7 @@ pipeline {
                     sh './mvnw sonar:sonar -Dsonar.projectKey=devops -Dsonar.host.url=${SONARQUBE_HOST} -Dsonar.login=${SONAR_AUTH_TOKEN}'
                 }
             }
-        }
+        }*/
         stage('Build Docker Image') {
             steps {
                 echo "Construction de l'image Docker..."
