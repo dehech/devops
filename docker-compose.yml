@@ -14,7 +14,8 @@ services:
     depends_on:
       - db
       - sonarqube # S'assure que SonarQube est démarré
-
+    networks:
+      - my-network
   db:
     image: mysql:5.7
     container_name: mysql-container
@@ -27,7 +28,8 @@ services:
       - mysql-data:/var/lib/mysql
     ports:
       - "3306:3306" # Port pour MySQL
-
+    networks:
+      - my-network
   sonarqube:
     image: sonarqube:community
     container_name: sonarqube-container
@@ -43,9 +45,14 @@ services:
       - sonarqube-data:/opt/sonarqube/data
       - sonarqube-logs:/opt/sonarqube/logs
       - sonarqube-extensions:/opt/sonarqube/extensions
-
+    networks:
+      - my-network
 volumes:
   mysql-data:
   sonarqube-data:
   sonarqube-logs:
   sonarqube-extensions:
+networks:
+  my-network:
+    driver: bridge
+
