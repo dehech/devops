@@ -16,7 +16,7 @@ services:
       - my-network
   db:
     image: mysql:5.7
-    container_name: mysql-container
+    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
       MYSQL_DATABASE: mydb
