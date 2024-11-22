@@ -73,12 +73,12 @@ pipeline {
         
        
         
-        stage('Deploy') {
+        /*stage('Deploy') {
             steps {
                 echo "Déploiement de l'application..."
                 sh "docker-compose -f ${DOCKER_COMPOSE_FILE} up -d"
             }
-        }
+        }*/
     }
 
     post {
