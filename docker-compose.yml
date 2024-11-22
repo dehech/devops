@@ -1,16 +1,19 @@
 version: "3.9"
 services:
   app:
-    image: fdehech/devops:latest # Remplacez par votre image Docker
+    image: mon-image:latest # Remplacez par votre image Docker
+    build:
+      context: . # Si l'image doit être construite depuis votre répertoire actuel
     ports:
-      - "8080:8080" # Mappage des ports pour accéder à l'application
+      - "8080:8080" # Port pour accéder à l'application
     environment:
       - DB_HOST=db
       - DB_USER=user
       - DB_PASSWORD=password
       - DB_NAME=mydb
     depends_on:
-      - db # S'assure que le conteneur 'db' démarre avant 'app'
+      - db
+      - sonarqube # S'assure que SonarQube est démarré
 
   db:
     image: mysql:5.7
@@ -23,7 +26,26 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
     ports:
-      - "3306:3306" # Mappage des ports pour accéder à la base de données
+      - "3306:3306" # Port pour MySQL
+
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube-container
+    ports:
+      - "9000:9000" # Port pour accéder à l'interface SonarQube
+    environment:
+      - SONAR_JDBC_URL=jdbc:mysql://db:3306/mydb?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance
+      - SONAR_JDBC_USERNAME=user
+      - SONAR_JDBC_PASSWORD=password
+    depends_on:
+      - db # S'assure que MySQL est démarré avant SonarQube
+    volumes:
+      - sonarqube-data:/opt/sonarqube/data
+      - sonarqube-logs:/opt/sonarqube/logs
+      - sonarqube-extensions:/opt/sonarqube/extensions
 
 volumes:
-  mysql-data: # Volume pour stocker les données de la base
+  mysql-data:
+  sonarqube-data:
+  sonarqube-logs:
+  sonarqube-extensions:
