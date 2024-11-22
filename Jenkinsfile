@@ -40,7 +40,17 @@ pipeline {
                 sh 'docker build -t devops:latest .'
             }
         }
-        
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    echo "Push de l'image Docker vers Docker Hub..."
+                    docker.withRegistry('', DOCKER_HUB_CREDENTIALS) {                
+                        sh "docker tag devops:latest ${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}"
+                        docker.image("${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}").push()
+                    }
+                }
+            }
+        }
         stage('Run Services with Docker Compose') {
             steps {
                 script {
@@ -61,17 +71,7 @@ pipeline {
             }
         }*/
         
-        stage('Push to Docker Hub') {
-            steps {
-                script {
-                    echo "Push de l'image Docker vers Docker Hub..."
-                    docker.withRegistry('', DOCKER_HUB_CREDENTIALS) {                
-                        sh "docker tag devops:latest ${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}"
-                        docker.image("${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}").push()
-                    }
-                }
-            }
-        }
+       
         
         stage('Deploy') {
             steps {
