@@ -5,7 +5,7 @@ services:
     build:
       context: . # Si l'image doit être construite depuis votre répertoire actuel
     ports:
-      - "8080:8080" # Port pour accéder à l'application
+      - "8081:8081" # Port pour accéder à l'application
     environment:
       - DB_HOST=db
       - DB_USER=user
