@@ -6,9 +6,9 @@ services:
       - "8081:8081" # Port pour accéder à l'application
     environment:
       - DB_HOST=db
-      - DB_USER=user
-      - DB_PASSWORD=password
-      - DB_NAME=mydb
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=devops
     depends_on:
       - db
       - sonarqube # S'assure que SonarQube est démarré
@@ -18,10 +18,8 @@ services:
     image: mysql:5.7
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: devops
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
     volumes:
       - mysql-data:/var/lib/mysql
     ports:
