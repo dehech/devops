@@ -45,9 +45,9 @@ services:
   #    - my-network
 volumes:
   mysql-data:
-  sonarqube-data:
-  sonarqube-logs:
-  sonarqube-extensions:
+#  sonarqube-data:
+#  sonarqube-logs:
+#  sonarqube-extensions:
 networks:
   my-network:
     driver: bridge
