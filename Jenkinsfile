@@ -40,7 +40,7 @@ pipeline {
                 sh 'docker build -t devops:latest .'
             }
         }
-        stage('Push to Docker Hub') {
+        /*stage('Push to Docker Hub') {
             steps {
                 script {
                     echo "Push de l'image Docker vers Docker Hub..."
@@ -50,7 +50,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
         stage('Run Services with Docker Compose') {
             steps {
                 script {
