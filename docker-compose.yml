@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   app:
-    image: fdehech/devops:latest # Remplacez par votre image Docker
+    image: fdehech/devops:51 # Remplacez par votre image Docker
     ports:
       - "8081:8081" # Port pour accéder à l'application
     environment:
