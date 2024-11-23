@@ -11,7 +11,7 @@ services:
       - DB_NAME=devops
     depends_on:
       - db
-      - sonarqube # S'assure que SonarQube est démarré
+  #    - sonarqube # S'assure que SonarQube est démarré
     networks:
       - my-network
   db:
