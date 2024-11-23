@@ -38,6 +38,7 @@ pipeline {
             steps {
                 echo "Construction de l'image Docker..."
                 sh 'docker build -t devops:latest .'
+                sh "docker tag devops:latest ${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}"
             }
         }
         /*stage('Push to Docker Hub') {
